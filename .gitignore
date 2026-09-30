@@ -1,0 +1,17 @@
+.vs/
+.vscode/
+.idea/
+*.user
+bin/
+obj/
+*.sln.DotSettings.user
+local.settings.json
+*.publishsettings
+docker-compose.override.yml
+.DS_Store
+Thumbs.db
+node_modules/
+package-lock.json
+
+# Local Claude Code audit/status reports - not part of the submission
+docs/status-report-*.md

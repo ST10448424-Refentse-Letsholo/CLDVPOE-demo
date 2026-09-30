@@ -1,0 +1,30 @@
+networks:
+  coffeenchill-net:
+
+volumes:
+  azurite-data:
+
+services:
+  azurite:
+    image: mmolokik/coffeenchill-azurite:v2.0
+    container_name: azurite
+    networks:
+      - coffeenchill-net
+    volumes:
+      - azurite-data:/data
+    ports:
+      - '10000:10000'
+      - '10001:10001'
+      - '10002:10002'
+
+  functions:
+    image: mmolokik/coffeenchill-functions:v2.0
+    container_name: coffeenchill-functions
+    networks:
+      - coffeenchill-net
+    depends_on:
+      - azurite
+    ports:
+      - '7071:80'
+    environment:
+      - AzureWebJobsStorage=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;QueueEndpoint=http://azurite:10001/devstoreaccount1;TableEndpoint=http://azurite:10002/devstoreaccount1;
